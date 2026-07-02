@@ -1,0 +1,14 @@
+.mainDiv{
+    display: flex;
+    height: 90vh;
+    
+}
+.courseDiv{
+    height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+}
+.course{
+    width: 30vw;
+}
