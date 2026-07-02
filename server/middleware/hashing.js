@@ -1,7 +1,13 @@
-import bcrypt from "bcrypt"
+import bcrypt, { hash } from "bcrypt"
 
-const hashing = (req,res,next)=>{
-    console.log(req.body)
+const hashing = async (req,res,next)=>{
+    let account = req.body 
+    const {password} = account
+    const hashedPassword = await bcrypt.hash(password,10)
+    console.log(hashedPassword)
+    account = {...account,password:hashedPassword}
+    req.account = account
+    next()
 }
 
 export default hashing 

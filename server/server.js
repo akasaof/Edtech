@@ -97,7 +97,7 @@ server1.post("/course/:operation",authentication,async (req,res)=>{
 server1.post("/User/:operation",authentication,hashing,async (req,res)=>{
         if(req.role==="Admin"){
             const operation = req.params.operation
-            const data = req.body
+            const data = req.account 
             const result = await adminUserOps({operation,data})
             res.json({result})
         }

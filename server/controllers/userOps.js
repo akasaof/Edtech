@@ -8,21 +8,28 @@ const adminUserOps = async (arg) => {
             return users
         }
         else if (operation === "create") {
-            await Login.insertOne(data)
-            return "Added Sucessfully"
+            console.log(data)
+            const duplicate = await Login.find({phone:data.phone})
+            if(duplicate.length===0){
+                await Login.insertOne(data)
+                return "Added Sucessfully"
+            }
+           else{
+            return "Account already exist"
+           }
         }
-        // else if (operation === "delete") {
-        //     const { id } = data
-        //     await Courses.findByIdAndDelete(id)
-        //     return "Course Deleted Sucessfully"
-        // }
-        // else if (operation === "update") {
-        //     const { id, changes } = data
-        //     console.log(id)
-        //     console.log(changes)
-        //     await Courses.findByIdAndUpdate(id, changes)
-        //     return "Course Updated Sucessfully"
-        // }
+        else if (operation === "delete") {
+            const { id } = data
+            await Login.findByIdAndDelete(id)
+            return "Course Deleted Sucessfully"
+        }
+        else if (operation === "update") {
+            const { id, changes } = data
+            console.log(id)
+            console.log(changes)
+            await Login.findByIdAndUpdate(id, changes)
+            return "Course Updated Sucessfully"
+        }
         else {
             return "Invalid Operation"
         }
