@@ -20,6 +20,8 @@ import filter from "./controllers/QBfilter.js"
 import adminCourseOps from "./controllers/courseOps.js"
 import adminUserOps from "./controllers/userOps.js"
 import hashing from "./middleware/hashing.js"
+import adminQbOps from "./controllers/qbOps.js"
+import adminJobsOps from "./controllers/jobBoardOps.js"
 
 
 db()
@@ -99,6 +101,45 @@ server1.post("/User/:operation",authentication,hashing,async (req,res)=>{
             const operation = req.params.operation
             const data = req.account 
             const result = await adminUserOps({operation,data})
+            res.json({result})
+        }
+        else{
+            res.status(400)
+            res.send("Acess Denied")
+        }
+})
+
+server1.post("/course/:operation",authentication,async (req,res)=>{
+        if(req.role==="Admin"){
+            const operation = req.params.operation
+            const data = req.body
+            const result = await adminCourseOps({operation,data})
+            res.json({result})
+        }
+        else{
+            res.status(400)
+            res.send("Acess Denied")
+        }
+})
+
+server1.post("/Qb/:operation",authentication,async (req,res)=>{
+        if(req.role==="Admin"){
+            const operation = req.params.operation
+            const data = req.body
+            const result = await adminQbOps({operation,data})
+            res.json({result})
+        }
+        else{
+            res.status(400)
+            res.send("Acess Denied")
+        }
+})
+
+server1.post("/JobBoard/:operation",authentication,async (req,res)=>{
+        if(req.role==="Admin"){
+            const operation = req.params.operation
+            const data = req.body
+            const result = await adminJobsOps({operation,data})
             res.json({result})
         }
         else{
