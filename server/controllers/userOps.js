@@ -4,14 +4,15 @@ const adminUserOps = async (arg) => {
     try {
         const { operation,data } = arg
         if (operation === "get") {
-            const users = await Login.find()
+            const users = await Login.find({"role":"Student"})
             return users
         }
         else if (operation === "create") {
-            console.log(data)
-            const duplicate = await Login.find({phone:data.phone})
+            const account = data.account
+            console.log(account)
+            const duplicate = await Login.find({phone:account.phone})
             if(duplicate.length===0){
-                await Login.insertOne(data)
+                await Login.insertOne(account)
                 return "Added Sucessfully"
             }
            else{
@@ -19,7 +20,8 @@ const adminUserOps = async (arg) => {
            }
         }
         else if (operation === "delete") {
-            const { id } = data
+            const  id  = data.account
+            console.log(id)
             await Login.findByIdAndDelete(id)
             return "Course Deleted Sucessfully"
         }
@@ -28,7 +30,7 @@ const adminUserOps = async (arg) => {
             console.log(id)
             console.log(changes)
             await Login.findByIdAndUpdate(id, changes)
-            return "Course Updated Sucessfully"
+            return "Changes Updated Sucessfully"
         }
         else {
             return "Invalid Operation"

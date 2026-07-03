@@ -3,11 +3,12 @@ import Login from "../models/account.js"
 
 const authentication = async (req,res,next)=>{
         const jwtToken = req.headers.authorization
-        const token = jwtToken.split(" ")[1]
+        const token = jwtToken
         const result = jwt.verify(
             token,"Edtech123"
         )
         const account = await Login.findById(result.id)
+        console.log(account)
         req.role = account.role
         next()
 }
