@@ -19,10 +19,10 @@ function Sidebar() {
                         setPage("Home")
                         localStorage.setItem("page", "Home")
                         sessionStorage.setItem("currentWeek", "Week-1")
-                        navigate("/Home")
+                        navigate("/CourseManagement")
                     }} className={page === "Home" ? `${styles.sidebarItm} ${styles.active}` : `${styles.sidebarItm}`}>
                         <i class="bi bi-house-door m-2 mt-3" style={{ color: "white", fontSize: "large", height: "100%" }}></i>
-                        <h6 style={{ color: "white", height: "100%" }}>Dashboard</h6>
+                        <h6 style={{ color: "white", height: "100%" }}>Course Management</h6>
                     </div>
                     <div onClick={() => {
                         setPage("Journey")
