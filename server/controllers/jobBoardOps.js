@@ -8,16 +8,15 @@ const adminJobsOps = async (arg)=>{
                 return users
             }
             else if (operation === "create") {
-                console.log(data)
-                const duplicate = await jobBoard.find({phone:data.phone})
-                if(duplicate.length===0){
+                    console.log(data)
                     await jobBoard.insertOne(data)
                     return "Job Added Sucessfully"
-                }
-               else{
-                return "Job already exist"
-               }
             }
+            else if(operation==="getById"){
+                        console.log(data)
+                        const job = await jobBoard.findById(data.id)
+                        return job
+                    }
             else if (operation === "delete") {
                 const { id } = data
                 await jobBoard.findByIdAndDelete(id)

@@ -2,12 +2,39 @@ import React from "react";
 import { useState, useMemo, useEffect } from "react";
 import Sidebar from "../../component/sidebar";
 import Nav from "../../component/nav";
-import styles from "../userManagement/userManagement.module.css";
+import styles from "../QbManagement/qbManagement.module.css";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 
+
+
+
+
 function JobManagement() {
-    const users = []
+    const [jobList, setJobList] = useState([])
+    const Navigate = useNavigate()
+    useEffect(() => {
+        getJob()
+    }, [])
+    useEffect(() => {
+        console.log(jobList)
+    }, [jobList])
+    function getJob() {
+        const token = localStorage.getItem("token")
+        axios.post("http://localhost:1000/JobBoard/get", {}, { headers: { authorization: token } })
+            .then((result) => {
+                console.log(result.data.result)
+                setJobList(result.data.result)
+            })
+    }
+    async function handleDelete(id) {
+        const token = localStorage.getItem("token")
+        await axios.post("http://localhost:1000/JobBoard/delete", { id }, { headers: { authorization: token } })
+        getJob()
+    }
+    async function handleUpdate(id){
+           Navigate(`/jobForm/Update/${id}`)
+    }
     return (
         <>
             {<Nav />}
@@ -19,10 +46,10 @@ function JobManagement() {
                             <div>
                                 <h1>Job management</h1>
                                 <p className={`${styles.subtext}`} style={{ fontSize: "large" }}>
-                                    {/* {users.length} user{users.length === 1 ? "" : "s"} */}
+                                    {jobList.length} user{jobList.length === 1 ? "" : "s"}
                                 </p>
                             </div>
-                            <button onClick={() => Navigate("/userForm/add")} type="button" className={`${styles.btnPrimary}`}>
+                            <button onClick={() => Navigate("/jobForm/Add")} type="button" className={`${styles.btnPrimary}`}>
                                 <span className={`${styles.iconPlus}`} aria-hidden="true">+</span> Add Job
                             </button>
                         </div>
@@ -32,8 +59,8 @@ function JobManagement() {
                                 type="text"
                                 className={`${styles.searchInput}`}
                                 placeholder="Search by name"
-                                // value={search}
-                                // onChange={(e) => setSearch(e.target.value)}
+                            // value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
 
@@ -41,33 +68,27 @@ function JobManagement() {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Phone</th>
+                                        <th>Company</th>
                                         <th>Role</th>
-                                        <th>Fees</th>
+                                        <th>Count</th>
                                         <th className={`${styles.actionsCol}`} style={{ textAlign: "right", marginRight: "30px" }}>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map((u) => (
+                                    {jobList.map((u) => (
                                         <tr key={u._id}>
-                                            <td className={`${styles.cellName}`}>{u.name}</td>
-                                            <td className={`${styles.cellPhone}`}>{u.phone}</td>
-                                            <td>
-                                                <RoleBadge role={u.role} />
-                                            </td>
-                                            <td>
-                                                <FeesBadge fees={u.Fees} />
-                                            </td>
+                                            <td className={`${styles.cellName}`}>{u.jobComp}</td>
+                                            <td className={`${styles.cellPhone}`}>{u.jobTitle}</td>
+                                            <td className={`${styles.cellPhone}`}>{u.count}</td>
                                             <td className={`${styles.actionsCol}`}>
-                                                <button 
-                                                // onClick={(e) => handleUpdate(u._id)} 
-                                                type="button" className={`${styles.iconBtn}`}>
+                                                <button
+                                                    onClick={(e) => handleUpdate(u._id)} 
+                                                    type="button" className={`${styles.iconBtn}`}>
                                                     Edit
                                                 </button>
                                                 <button
-                                                //  onClick={(e) => handleDelete(u._id)} 
-                                                 type="button" className={`${styles.iconBtn} ${styles.iconBtnDanger}`}>
+                                                     onClick={(e) => handleDelete(u._id)} 
+                                                    type="button" className={`${styles.iconBtn} ${styles.iconBtnDanger}`}>
                                                     Delete
                                                 </button>
                                             </td>
@@ -76,9 +97,9 @@ function JobManagement() {
                                 </tbody>
                             </table>
 
-                            {users.length === 0 && (
+                            {jobList.length === 0 && (
                                 <p className={`${styles.emptyState}`}>
-                                    No users match your search. Try a different name or phone number.
+                                    No jobList match your search. Try a different name or phone number.
                                 </p>
                             )}
                         </div>

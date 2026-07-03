@@ -127,6 +127,7 @@ server1.post("/Qb/:operation",authentication,async (req,res)=>{
         if(req.role==="Admin"){
             const operation = req.params.operation
             const data = req.body
+            console.log(data)
             const result = await adminQbOps({operation,data})
             res.json({result})
         }

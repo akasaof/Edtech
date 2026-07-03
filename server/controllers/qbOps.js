@@ -7,6 +7,11 @@ const adminQbOps = async (arg) => {
             const courses = await QuestionBank.find()
             return courses
         }
+        else if(operation==="getById"){
+            console.log(data)
+            const course = await QuestionBank.findById(data.id)
+            return course
+        }
         else if (operation === "create") {
             const duplicate = await QuestionBank.find(data)
             console.log(duplicate) 

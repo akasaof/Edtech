@@ -19,6 +19,7 @@ import AdminUser from './adminAcess/formsComp/adminUser.jsx'
 import QbManagement from './adminAcess/QbManagement/qbManagement.jsx'
 import AdminQb from './adminAcess/formsComp/adminQb.jsx'
 import JobManagement from './adminAcess/jobManagement/jobManagement.jsx'
+import JobForm from './adminAcess/formsComp/adminJob.jsx'
 
 function App() {
   const dispath = useDispatch()
@@ -41,7 +42,8 @@ function App() {
         <Route path="/qbForm/:ops" element={<AdminQb/>}/>
         <Route path="/qbForm/:ops/:id" element={<AdminQb/>}/>
         <Route path="/jobManagement" element={<JobManagement/>}/>
-
+        <Route path="/jobForm/:ops" element={<JobForm/>}/>
+        <Route path="/jobForm/:ops/:id" element={<JobForm/>}/>
       </Routes>
     </BrowserRouter>
     
