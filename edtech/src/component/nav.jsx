@@ -10,8 +10,6 @@ function Nav() {
     useEffect(() => {
         setRecords({trophies:1000 + Math.ceil(Math.random() * 10),fire:100 + Math.ceil(Math.random() * 10),dollar:10 + Math.ceil(Math.random() * 10)})
     },[])
-    const account = useSelector((store)=>store.userInfo.account)
-    console.log(account)
     return (
         <>
             <nav className="nav">

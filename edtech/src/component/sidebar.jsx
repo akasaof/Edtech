@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { changeTab } from "../redux/Silcers/sampleSlice";
 import { useSelector } from "react-redux";
 
+
 function Sidebar() {
     const navigate = useNavigate()
     const [page, setPage] = useState(localStorage.getItem("page") ? localStorage.getItem("page") : "Home")
@@ -26,7 +27,7 @@ function Sidebar() {
                     <div onClick={() => {
                         setPage("Journey")
                         localStorage.setItem("page", "Journey")
-                        navigate("/journey")
+                        navigate("/userManagement")
                     }} className={page === "Journey" ? `${styles.sidebarItm} ${styles.active}` : `${styles.sidebarItm}`}>
                         <i class="bi bi-flag m-2 mt-3" style={{ color: "white", fontSize: "large", height: "100%" }}></i>
                         <h6 style={{ color: "white", height: "100%" }}>User Management</h6>
@@ -34,7 +35,7 @@ function Sidebar() {
                     <div onClick={() => {
                         setPage("Question")
                         localStorage.setItem("page", "Question")
-                        navigate("/qb")
+                        navigate("/qbManagement")
                     }} className={page === "Question" ? `${styles.sidebarItm} ${styles.active}` : `${styles.sidebarItm}`}>
                         <i class="bi bi-book m-2 mt-3" style={{ color: "white", fontSize: "large", height: "100%" }}></i>
                         <h6 style={{ color: "white", height: "100%" }}>Question Bank Management</h6>
@@ -42,7 +43,7 @@ function Sidebar() {
                     <div onClick={() => {
                         setPage("job")
                         localStorage.setItem("page", "job")
-                        navigate("/jobBoard")
+                        navigate("/jobManagement")
                     }} className={page === "job" ? `${styles.sidebarItm} ${styles.active}` : `${styles.sidebarItm}`}>
                         <i class="bi bi-suitcase-lg m-2 mt-3" style={{ color: "white", fontSize: "large", height: "100%" }}></i>
                         <h6 style={{ color: "white", height: "100%" }}>Job Board Management</h6>

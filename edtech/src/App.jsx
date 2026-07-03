@@ -14,6 +14,11 @@ import { sampleData } from './redux/Silcers/sampleSlice'
 import Journey from './pages/journey'
 import QuestionBank from './pages/questionBank'
 import JobBoard from './pages/jobBoard'
+import Usermanagement from './adminAcess/userManagement/userManagement.jsx'
+import AdminUser from './adminAcess/formsComp/adminUser.jsx'
+import QbManagement from './adminAcess/QbManagement/qbManagement.jsx'
+import AdminQb from './adminAcess/formsComp/adminQb.jsx'
+import JobManagement from './adminAcess/jobManagement/jobManagement.jsx'
 
 function App() {
   const dispath = useDispatch()
@@ -29,6 +34,14 @@ function App() {
         <Route path='/journey' element={<Journey/>}/>
         <Route path="/qb" element={<QuestionBank/>}/>
         <Route path='/jobBoard' element={<JobBoard/>}/>
+        <Route path="/userManagement" element={<Usermanagement/>}/>
+        <Route path="/userForm/:ops" element={<AdminUser/>}/>
+        <Route path="/userForm/:ops/:id" element={<AdminUser/>}/>
+        <Route path="/qbManagement" element={<QbManagement/>}/>
+        <Route path="/qbForm/:ops" element={<AdminQb/>}/>
+        <Route path="/qbForm/:ops/:id" element={<AdminQb/>}/>
+        <Route path="/jobManagement" element={<JobManagement/>}/>
+
       </Routes>
     </BrowserRouter>
     
