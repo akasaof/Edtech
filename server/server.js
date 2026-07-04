@@ -13,6 +13,7 @@ import db from "./config/dbconfig.js"
 import otpGen from "./middleware/otpgen.js"
 import auth from "./middleware/auth.js"
 import authentication from "./middleware/authentication.js"
+import upload from "./uploads.js"
 
 
 import otp from "./controllers/otpGenerator.js"
@@ -148,6 +149,21 @@ server1.post("/JobBoard/:operation",authentication,async (req,res)=>{
             res.status(400)
             res.send("Acess Denied")
         }
+})
+
+server1.use("/uploads",express.static("uploads"))
+
+server1.post("/upload",upload.single("image"),async(req,res)=>{
+        try{
+            const id = req.body.id
+            console.log(id)
+            console.log(req.file.filename)
+            await Courses.findByIdAndUpdate(id,{image:req.file.filename})
+            res.send("Uploaded")
+        }
+        catch{
+            console.log("error")
+        }            
 })
 
 server1.listen(1000, () => {

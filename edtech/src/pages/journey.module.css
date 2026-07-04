@@ -8,8 +8,13 @@
     overflow: scroll;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .course{
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

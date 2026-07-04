@@ -4,6 +4,7 @@ import Nav from "../component/nav";
 import styles from "./journey.module.css"
 import axios from "axios";
 import { useNavigate } from "react-router";
+import Deployment from "../uploads/Deployment.png"
 
 function Journey(){
 
@@ -37,7 +38,8 @@ function Journey(){
                { course.map((item,index)=>{
                         return (
                             <>
-                            <div onClick={()=>handleSubmit(index)} className={`${styles.course} m-5`}>
+                            <div onClick={()=>handleSubmit(index)} className={`${styles.course} m-5 fw-bold`}>
+                                <img src={`http://localhost:1000/uploads/${item.image}`} style={{height:"13vh"}}/>
                                 {item.title}
                             </div>
                             </>

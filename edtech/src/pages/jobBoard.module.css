@@ -1,4 +1,4 @@
-.mainDiv{
+/* .mainDiv{
     display: flex;
     height: 90vh;
     
@@ -11,4 +11,141 @@
 }
 .course{
     width: 30vw;
+} */
+
+
+.mainDiv{
+    display: flex;
+    height: 90vh;
+}
+
+.courseDiv{
+    height: 90vh;
+    width: 100%;
+    overflow: scroll;
+    padding: 30px 40px;
+    font-family: 'Poppins', 'Segoe UI', -apple-system, sans-serif;
+}
+
+.head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.pageTitle{
+    font-size: 1.9rem;
+    color: #0f172a;
+    margin: 0;
+}
+
+.resultCount{
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.course{
+    display: flex;
+    flex-direction: column;
+    border: 1.5px solid #e2e2e2;
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 22px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.course:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(76, 63, 255, 0.14);
+    border-color: #4c3fff;
+}
+
+.cardTop{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.logo{
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(76, 63, 255, 0.1);
+    color: #4c3fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cardTopText{
+    min-width: 0;
+}
+
+.jobTitle{
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jobComp{
+    margin: 2px 0 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.jobDesc{
+    flex: 1;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.applyBtn{
+    align-self: flex-start;
+    border: none;
+    background: #4c3fff;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 10px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s ease, transform .15s ease;
+}
+
+.applyBtn:hover{
+    background: #3a2fe0;
+    transform: translateX(4px);
+}
+
+@media (max-width: 940px){
+    .courseDiv{
+        padding: 20px;
+    }
+    .grid{
+        grid-template-columns: 1fr;
+    }
 }

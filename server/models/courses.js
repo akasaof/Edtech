@@ -6,7 +6,8 @@ const CourseSchema = new mongoose.Schema({
     title: String,
     videoa: Array,
     cheatsheets: Array,
-    exams: Array
+    exams: Array,
+    image:String
 })
 
 const Courses = mongoose.model("course", CourseSchema) 
