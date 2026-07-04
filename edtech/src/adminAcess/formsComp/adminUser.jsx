@@ -72,7 +72,6 @@ function AdminUser() {
                 <div className={`${styles.mainTab}`}>
                     <div style={{ margin: "30px" }}>
                         <h1>{ops} user</h1>
-
                         <label className={`${styles.field}`}>
                             Name
                             <input

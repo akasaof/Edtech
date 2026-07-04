@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    account: [],
+    account: sessionStorage.getItem("account")?JSON.parse(sessionStorage.getItem("account")):[],
 }
 
 const userSlice = createSlice({
@@ -11,7 +11,7 @@ const userSlice = createSlice({
     reducers: {
         updateStatus: (state, action) => {
             state.account = action.payload;
-            state.isAdmin = action.payload.role === "admin";
+            state.isAdmin = action.payload.role === "Admin";
     }
 }
 })

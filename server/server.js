@@ -32,14 +32,20 @@ server1.use(cors())
 server1.use(express.json())
 
 server1.post("/otp", otpGen, async (req, res) => {
-    const user = req.user
-    const result = await otp(user)
-    res.json(result)
+    try {
+        const user = req.user
+        const result = await otp(user)
+        res.json(result)
+    }
+    catch{
+        res.send("This phone number dosen't havn an account")
+    }
+    
 })
 
 server1.post("/login", auth, (req, res) => {
     const status = req.status
-    console.log("status",status)
+    console.log("status", status)
     res.json(status)
 })
 
@@ -84,86 +90,86 @@ server1.get("/jobBoard", async (req, res) => {
 
 // --------------------Admin-----------------
 
-server1.post("/course/:operation",authentication,async (req,res)=>{
-        if(req.role==="Admin"){
-            const operation = req.params.operation
-            const data = req.body
-            const result = await adminCourseOps({operation,data})
-            res.json({result})
-        }
-        else{
-            res.status(400)
-            res.send("Acess Denied")
-        }
+server1.post("/course/:operation", authentication, async (req, res) => {
+    if (req.role === "Admin") {
+        const operation = req.params.operation
+        const data = req.body
+        const result = await adminCourseOps({ operation, data })
+        res.json({ result })
+    }
+    else {
+        res.status(400)
+        res.send("Acess Denied")
+    }
 })
 
-server1.post("/User/:operation",authentication,async (req,res)=>{
-        if(req.role==="Admin"){
-            const operation = req.params.operation
-            const data = req.body 
-            console.log(data)
-            const result = await adminUserOps({operation,data})
-            res.json({result})
-        }
-        else{
-            res.status(400)
-            res.send("Acess Denied")
-        }
+server1.post("/User/:operation", authentication, async (req, res) => {
+    if (req.role === "Admin") {
+        const operation = req.params.operation
+        const data = req.body
+        console.log(data)
+        const result = await adminUserOps({ operation, data })
+        res.json({ result })
+    }
+    else {
+        res.status(400)
+        res.send("Acess Denied")
+    }
 })
 
-server1.post("/course/:operation",authentication,async (req,res)=>{
-        if(req.role==="Admin"){
-            const operation = req.params.operation
-            const data = req.body
-            const result = await adminCourseOps({operation,data})
-            res.json({result})
-        }
-        else{
-            res.status(400)
-            res.send("Acess Denied")
-        }
+server1.post("/course/:operation", authentication, async (req, res) => {
+    if (req.role === "Admin") {
+        const operation = req.params.operation
+        const data = req.body
+        const result = await adminCourseOps({ operation, data })
+        res.json({ result })
+    }
+    else {
+        res.status(400)
+        res.send("Acess Denied")
+    }
 })
 
-server1.post("/Qb/:operation",authentication,async (req,res)=>{
-        if(req.role==="Admin"){
-            const operation = req.params.operation
-            const data = req.body
-            console.log(data)
-            const result = await adminQbOps({operation,data})
-            res.json({result})
-        }
-        else{
-            res.status(400)
-            res.send("Acess Denied")
-        }
+server1.post("/Qb/:operation", authentication, async (req, res) => {
+    if (req.role === "Admin") {
+        const operation = req.params.operation
+        const data = req.body
+        console.log(data)
+        const result = await adminQbOps({ operation, data })
+        res.json({ result })
+    }
+    else {
+        res.status(400)
+        res.send("Acess Denied")
+    }
 })
 
-server1.post("/JobBoard/:operation",authentication,async (req,res)=>{
-        if(req.role==="Admin"){
-            const operation = req.params.operation
-            const data = req.body
-            const result = await adminJobsOps({operation,data})
-            res.json({result})
-        }
-        else{
-            res.status(400)
-            res.send("Acess Denied")
-        }
+server1.post("/JobBoard/:operation", authentication, async (req, res) => {
+    if (req.role === "Admin") {
+        const operation = req.params.operation
+        const data = req.body
+        const result = await adminJobsOps({ operation, data })
+        res.json({ result })
+    }
+    else {
+        res.status(400)
+        res.send("Acess Denied")
+    }
 })
 
-server1.use("/uploads",express.static("uploads"))
+server1.use("/uploads", express.static("uploads"))
 
-server1.post("/upload",upload.single("image"),async(req,res)=>{
-        try{
-            const id = req.body.id
-            console.log(id)
-            console.log(req.file.filename)
-            await Courses.findByIdAndUpdate(id,{image:req.file.filename})
-            res.send("Uploaded")
-        }
-        catch{
-            console.log("error")
-        }            
+server1.post("/upload", upload.single("image"), async (req, res) => {
+    try {
+        const id = req.body.id
+        console.log(id)
+        console.log(req.file.filename)
+        await Courses.findByIdAndUpdate(id, { image: req.file.filename })
+        res.send("Uploaded")
+    }
+    catch {
+        console.log("error")
+    }
 })
 
 server1.listen(1000, () => {

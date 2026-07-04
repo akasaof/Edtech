@@ -22,7 +22,7 @@ function JobForm() {
         }
     },[])
     function handleSubmit() {
-        if (ops === "add") {
+        if (ops.toLowerCase() === "add") {
             console.log(form)
             axios.post("http://localhost:1000/JobBoard/create", form, { headers: { authorization: token } })
                 .then((result) => {
@@ -93,7 +93,7 @@ function JobForm() {
                         </label>
                         <div className={`${styles.modalActions}`}>
                             <button type="button" className={`${styles.btnPrimary}`}
-                                onClick={handleSubmit}
+                                onClick={()=>handleSubmit()}
                             >
                                 {ops} job 
                             </button>
