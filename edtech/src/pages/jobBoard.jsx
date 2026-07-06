@@ -41,7 +41,7 @@ function JobBoard() {
                                             </div>
                                         </div>
                                         <p className={`${styles.jobDesc}`}>{item.jobDesc}</p>
-                                        <button className={`${styles.applyBtn}`}>Apply Now</button>
+                                        <button onClick={()=>alert("")} className={`${styles.applyBtn}`}>Apply Now</button>
                                     </div>
                                 )
                             })}

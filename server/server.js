@@ -25,6 +25,7 @@ import adminUserOps from "./controllers/userOps.js"
 import hashing from "./middleware/hashing.js"
 import adminQbOps from "./controllers/qbOps.js"
 import adminJobsOps from "./controllers/jobBoardOps.js"
+import Login from "./models/account.js"
 
 
 db()
@@ -172,6 +173,17 @@ server1.post("/upload", upload.single("image"), async (req, res) => {
     catch {
         console.log("error")
     }
+})
+
+server1.post("/hashAdmin",hashing,(req,res)=>{
+    console.log(req.account)
+    const {password,id} = req.account 
+    console.log(id)
+    Login.findByIdAndUpdate(id,{password})
+    .then(()=>{
+        console.log("sucess")
+    })
+    res.json({account:req.account})
 })
 
 server1.listen(process.env.port, () => {

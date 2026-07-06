@@ -1,7 +1,8 @@
 import Login from "../models/account.js";
 import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
     const { password, token } = req.body;
     console.log(password)
     console.log(token)
@@ -11,7 +12,7 @@ const auth = (req, res, next) => {
     )
     const { id } = verification
     Login.findById(id)
-        .then((result) => {
+        .then(async (result) => {
             console.log("result", result)
             if (result.role === "Student") {
                 if (result.Otp === Number(password)) {
@@ -25,9 +26,17 @@ const auth = (req, res, next) => {
                 }
             }
             else {
-                if (result.password === password) {
+                const verification = await bcrypt.compare(password,result.password)
+                console.log(verification,"brypt") 
+                if (verification) {
                     req.status = true
                     next()
+                }
+                else if(!verification){
+                    if(result.password===password){
+                        req.status = true
+                        next()
+                    }
                 }
                 else {
 
