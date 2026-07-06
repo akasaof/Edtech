@@ -81,8 +81,8 @@ function Login() {
                     console.log(result)
                     dispatch(updateStatus({ role: "Admin", token }))
                     sessionStorage.setItem("account",JSON.stringify({ role: "Admin", token }))
-                    sessionStorage.setItem("page","CourseManagement")
-                    navigate("/CourseManagement")
+                    sessionStorage.setItem("page","userManagement")
+                    navigate("/userManagement")
                 }
                 else{
                     alert("Incorrect Password")

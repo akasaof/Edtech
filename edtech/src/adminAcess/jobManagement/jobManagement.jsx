@@ -12,6 +12,8 @@ import { useNavigate, useParams } from "react-router";
 
 function JobManagement() {
     const [jobList, setJobList] = useState([])
+    const [search,setSearch] = useState("")
+    const [searchList,setSearchList] = useState([])
     const Navigate = useNavigate()
     useEffect(() => {
         getJob()
@@ -35,6 +37,17 @@ function JobManagement() {
     async function handleUpdate(id){
            Navigate(`/jobForm/Update/${id}`)
     }
+    console.log(search)
+    useEffect(() => {
+            const list = jobList.filter((item) => {
+                if (item.jobTitle.toLowerCase().includes(search.toLowerCase())) {
+                    return item
+                }
+            })
+            setSearchList(list)
+            console.log(list)
+            console.log(search)
+        }, [search])
     return (
         <>
             {<Nav />}
@@ -59,7 +72,7 @@ function JobManagement() {
                                 type="text"
                                 className={`${styles.searchInput}`}
                                 placeholder="Search by name"
-                            // value={search}
+                            value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
@@ -75,7 +88,26 @@ function JobManagement() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {jobList.map((u) => (
+                                    {search===""&&jobList.map((u) => (
+                                        <tr key={u._id}>
+                                            <td className={`${styles.cellName}`}>{u.jobComp}</td>
+                                            <td className={`${styles.cellPhone}`}>{u.jobTitle}</td>
+                                            <td className={`${styles.cellPhone}`}>{u.count}</td>
+                                            <td className={`${styles.actionsCol}`}>
+                                                <button
+                                                    onClick={(e) => handleUpdate(u._id)} 
+                                                    type="button" className={`${styles.iconBtn}`}>
+                                                    Edit
+                                                </button>
+                                                <button
+                                                     onClick={(e) => handleDelete(u._id)} 
+                                                    type="button" className={`${styles.iconBtn} ${styles.iconBtnDanger}`}>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {search!==""&&searchList.map((u) => (
                                         <tr key={u._id}>
                                             <td className={`${styles.cellName}`}>{u.jobComp}</td>
                                             <td className={`${styles.cellPhone}`}>{u.jobTitle}</td>

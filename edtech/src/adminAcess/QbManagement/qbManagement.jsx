@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function DifficultyBadge(difficulty) {
-    console.log(difficulty)
     if (difficulty.difficulty === "Hard") {
         return (
             <span style={{ color: "red" }}>Hard</span>
@@ -30,6 +29,8 @@ function QbManagement() {
     const Navigate = useNavigate()
     const token = localStorage.getItem("token")
     const [search, setSearch] = useState("");
+    const [searchList,setSearchList] = useState([])
+    console.log(search)
     const [roleFilter, setRoleFilter] = useState("all");
     const [qbs, setQb] = useState([])
     function getQb() {
@@ -51,6 +52,16 @@ function QbManagement() {
     async function handleUpdate(id){
            Navigate(`/qbForm/Update/${id}`)
   }
+    useEffect(() => {
+            const list = qbs.filter((item) => {
+                if (item.title.toLowerCase().includes(search.toLowerCase())) {
+                    return item
+                }
+            })
+            setSearchList(list)
+            console.log(list)
+            console.log(search)
+        }, [search])
     return (
         <>
             {<Nav />}
@@ -90,7 +101,24 @@ function QbManagement() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {qbs.map((u) => (
+                                    {search===""&&qbs.map((u) => (
+                                        <tr key={u._id}>
+                                            <td className={`${styles.cellName}`}>{u.week}</td>
+                                            <td style={{ color: "black" }} className={`${styles.cellPhone}`}>{u.title}</td>
+                                            <td>
+                                                <DifficultyBadge difficulty={u.difficulty} />
+                                            </td>
+                                            <td className={`${styles.actionsCol}`}>
+                                                <button onClick={(e) => handleUpdate(u._id)} type="button" className={`${styles.iconBtn}`}>
+                                                    Edit
+                                                </button>
+                                                <button onClick={(e) => handleDelete(u._id)} type="button" className={`${styles.iconBtn} ${styles.iconBtnDanger}`}>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {search!==""&&searchList.map((u) => (
                                         <tr key={u._id}>
                                             <td className={`${styles.cellName}`}>{u.week}</td>
                                             <td style={{ color: "black" }} className={`${styles.cellPhone}`}>{u.title}</td>

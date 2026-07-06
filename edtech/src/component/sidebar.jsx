@@ -20,14 +20,6 @@ function Sidebar() {
             <>
                 <div className={`${styles.sidebar}`}>
                     <div onClick={() => {
-                        setPage("CourseManagement")
-                        sessionStorage.setItem("page", "CourseManagement")
-                        navigate("/CourseManagement")
-                    }} className={page === "CourseManagement" ? `${styles.sidebarItm} ${styles.active}` : `${styles.sidebarItm}`}>
-                        <i class="bi bi-house-door m-2 mt-3" style={{ color: "white", fontSize: "large", height: "100%" }}></i>
-                        <h6 style={{ color: "white", height: "100%" }}>Course Management</h6>
-                    </div>
-                    <div onClick={() => {
                         setPage("userManagement")
                         sessionStorage.setItem("page", "userManagement")
                         navigate("/userManagement")

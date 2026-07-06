@@ -49,11 +49,7 @@ export default function UserManagement() {
   }, [])
   const users = usersList;
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState("all");
-
-  
-
-
+  const [searchList,setSearchList] = useState([])
   async function handleDelete(id) {
     await axios.post("http://localhost:1000/User/delete", { account: id }, { headers: { authorization: token } })
     getUsers()
@@ -74,6 +70,16 @@ export default function UserManagement() {
   async function handleUpdate(id){
     Navigate(`/userForm/update/${id}`)
   }
+  useEffect(() => {
+          const list = users.filter((item) => {
+              if (item.name.toLowerCase().includes(search.toLowerCase())) {
+                  return item
+              }
+          })
+          setSearchList(list)
+          console.log(list)
+          console.log(search)
+      }, [search])
   return (
     <>
       {<Nav />}
@@ -115,7 +121,27 @@ export default function UserManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((u) => (
+                  {search===""&&users.map((u) => (
+                    <tr key={u._id}>
+                      <td className={`${styles.cellName}`}>{u.name}</td>
+                      <td className={`${styles.cellPhone}`}>{u.phone}</td>
+                      <td>
+                        <RoleBadge role={u.role} />
+                      </td>
+                      <td>
+                        <FeesBadge fees={u.Fees} />
+                      </td>
+                      <td className={`${styles.actionsCol}`}>
+                        <button onClick={(e) => handleUpdate(u._id)} type="button" className={`${styles.iconBtn}`}>
+                          Edit
+                        </button>
+                        <button onClick={(e) => handleDelete(u._id)} type="button" className={`${styles.iconBtn} ${styles.iconBtnDanger}`}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {search!==""&&searchList.map((u) => (
                     <tr key={u._id}>
                       <td className={`${styles.cellName}`}>{u.name}</td>
                       <td className={`${styles.cellPhone}`}>{u.phone}</td>

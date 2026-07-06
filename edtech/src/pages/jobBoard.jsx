@@ -1,51 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import styles from "./jobBoard.module.css"
-// import Nav from "../component/nav";
-// import Sidebar from "../component/sidebar";
-// import oldStyles from "../pages/journey.module.css";
-// import axios from "axios";
-
-
-// function JobBoard() {
-//     const [jobs,setJob] = useState([])
-//     useEffect(()=>{
-//         async function getMethod(){
-//             const jobs = await axios.get("http://localhost:1000/jobBoard")
-//             setJob(jobs.data.jobs)
-//         }
-//         getMethod()
-//     },[])
-//     return (
-//         <>
-//             <Nav />
-//             <div className={`${styles.mainDiv}`}>
-//                 <Sidebar />
-//                 <div className={`${styles.courseDiv}`}>
-//                     {jobs.map((item, index) => {
-//                         return (
-//                             <>
-//                                 <div  className={`${styles.course} m-5`}>
-//                                     <h3>Title:{item.jobTitle}</h3>
-//                                     <h4>Company:{item.jobComp}</h4>
-//                                     <p>{item.jobDesc}</p>
-//                                     <button className="btn btn-primary">Apply Now</button>
-//                                 </div>
-//                             </>
-//                         )
-//                     })}
-//                 </div>
-//             </div>
-            
-                
-            
-            
-//         </>
-//     )
-// }
-
-// export default JobBoard
-
-
 
 import React, { useEffect, useState } from "react";
 import styles from "./jobBoard.module.css"
@@ -56,45 +8,48 @@ import axios from "axios";
 
 
 function JobBoard() {
-    const [jobs,setJob] = useState([])
-    useEffect(()=>{
-        async function getMethod(){
+    const [jobs, setJob] = useState([])
+    useEffect(() => {
+        async function getMethod() {
             const jobs = await axios.get("http://localhost:1000/jobBoard")
             setJob(jobs.data.jobs)
         }
         getMethod()
-    },[])
+    }, [])
     return (
         <>
-            <Nav />
-            <div className={`${styles.mainDiv}`}>
-                <Sidebar />
-                <div className={`${styles.courseDiv}`}>
-                    <div className={`${styles.head}`}>
-                        <h1 className={`${styles.pageTitle} fw-bold`}>Job Board</h1>
-                        <span className={`${styles.resultCount}`}>{jobs.length} open role{jobs.length === 1 ? "" : "s"}</span>
-                    </div>
-                    <div className={`${styles.grid}`}>
-                        {jobs.map((item, index) => {
-                            return (
-                                <div className={`${styles.course}`} key={index}>
-                                    <div className={`${styles.cardTop}`}>
-                                        <div className={`${styles.logo}`}>
-                                            {item.jobComp ? item.jobComp.charAt(0).toUpperCase() : "?"}
+            <div className="pb-5">
+                <Nav />
+                <div className={`${styles.mainDiv}`}>
+                    <Sidebar />
+                    <div className={`${styles.courseDiv}`}>
+                        <div className={`${styles.head}`}>
+                            <h1 className={`${styles.pageTitle} fw-bold`}>Job Board</h1>
+                            <span className={`${styles.resultCount}`}>{jobs.length} open role{jobs.length === 1 ? "" : "s"}</span>
+                        </div>
+                        <div className={`${styles.grid}`}>
+                            {jobs.map((item, index) => {
+                                return (
+                                    <div className={`${styles.course}`} key={index}>
+                                        <div className={`${styles.cardTop}`}>
+                                            <div className={`${styles.logo}`}>
+                                                {item.jobComp ? item.jobComp.charAt(0).toUpperCase() : "?"}
+                                            </div>
+                                            <div className={`${styles.cardTopText}`}>
+                                                <h3 className={`${styles.jobTitle}`}>{item.jobTitle}</h3>
+                                                <h4 className={`${styles.jobComp}`}>{item.jobComp}</h4>
+                                            </div>
                                         </div>
-                                        <div className={`${styles.cardTopText}`}>
-                                            <h3 className={`${styles.jobTitle}`}>{item.jobTitle}</h3>
-                                            <h4 className={`${styles.jobComp}`}>{item.jobComp}</h4>
-                                        </div>
+                                        <p className={`${styles.jobDesc}`}>{item.jobDesc}</p>
+                                        <button className={`${styles.applyBtn}`}>Apply Now</button>
                                     </div>
-                                    <p className={`${styles.jobDesc}`}>{item.jobDesc}</p>
-                                    <button className={`${styles.applyBtn}`}>Apply Now</button>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

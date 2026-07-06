@@ -3,13 +3,28 @@ import img from "../assets/edtech.png"
 import styles from "../pages/home.module.css"
 import { useSelector } from "react-redux";
 import { store } from "../redux/store";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 function Nav() {
-   
-    const [records,setRecords] = useState({trophies:0,fire:0,dollar:0})
+    const navigate = useNavigate()
+    const [search, setSearch] = useState("")
+    const [courses, setCourse] = useState([])
     useEffect(() => {
-        setRecords({trophies:1000 + Math.ceil(Math.random() * 10),fire:100 + Math.ceil(Math.random() * 10),dollar:10 + Math.ceil(Math.random() * 10)})
-    },[])
+        axios.get("http://localhost:1000/getData")
+            .then((result) => {
+                setCourse(result.data)
+            })
+    }, [])
+    const filter = courses.filter((item)=>{
+        if(item.title.toLowerCase().includes(search.toLowerCase())){
+            return item
+        }
+    })
+    const [records, setRecords] = useState({ trophies: 0, fire: 0, dollar: 0 })
+    useEffect(() => {
+        setRecords({ trophies: 1000 + Math.ceil(Math.random() * 10), fire: 100 + Math.ceil(Math.random() * 10), dollar: 10 + Math.ceil(Math.random() * 10) })
+    }, [])
     return (
         <>
             <nav className="nav">
@@ -17,7 +32,6 @@ function Nav() {
                     <img src={img} style={{ height: "100%" }} />
                 </div>
                 <div className={styles.navEnd}>
-                    <input onClick={() => console.log("Hello")} className="form-control" placeholder="Search for Python" style={{ borderRadius: "20px", width: "100%" }} />
                     <div className={styles.records}>
                         <div className="d-flex me-1">
                             {records.trophies}
