@@ -2,6 +2,8 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+dotenv.config()
 
 
 import Courses from "./models/courses.js"
@@ -117,7 +119,7 @@ server1.post("/User/:operation", authentication, async (req, res) => {
     }
 })
 
-server1.post("/course/:operation", authentication, async (req, res) => {
+server1.post("/Admincourse/:operation",authentication,async (req, res) => {
     if (req.role === "Admin") {
         const operation = req.params.operation
         const data = req.body
@@ -172,7 +174,7 @@ server1.post("/upload", upload.single("image"), async (req, res) => {
     }
 })
 
-server1.listen(1000, () => {
+server1.listen(process.env.port, () => {
     console.log("Server is running")
 })
 

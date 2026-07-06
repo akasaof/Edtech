@@ -8,6 +8,11 @@ const adminCourseOps = async (arg) => {
             const courses = await Courses.find()
             return courses
         }
+        else if(operation==="getbyid"){
+            const {id} = data
+            const course = await Courses.findById(id)
+            return course
+        }
         else if (operation === "create") {
             await Courses.insertOne(data)
             return "Added Sucessfully"

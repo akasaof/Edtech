@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"
+dotenv.config("../")
+
+
 
 const db = async()=>{
     try{
-        mongoose.connect("mongodb://localhost:27017/edtech")
+        mongoose.connect(process.env.url)
         console.log("Connected Sucessfully")
     }
     catch{
